@@ -6,5 +6,12 @@
   "background_color": "#0f172a",
   "theme_color": "#38bdf8",
   "description": "A modern web audio player with built-in equalizer and local file management.",
-  "icons": []
+  "icons": [
+    {
+      "src": "./icon.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
