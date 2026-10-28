@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mp3Music Downloader & Player</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .player-container {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+            width: 400px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .app-header h1 {
+            font-size: 1.4rem;
+            color: #38bdf8;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        .app-header p {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 8px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #f8fafc;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: #38bdf8;
+        }
+
+        .load-btn {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 0 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .load-btn:hover {
+            background-color: #7dd3fc;
+        }
+
+        .track-card {
+            background: #0f172a;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #334155;
+        }
+
+        #track-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f8fafc;
+            word-break: break-all;
+        }
+
+        .progress-container {
+            margin-bottom: 15px;
+        }
+
+        #progress-bar {
+            width: 100%;
+            cursor: pointer;
+            accent-color: #38bdf8;
+            height: 6px;
+            background: #334155;
+            border-radius: 3px;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 6px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .control-btn {
+            background-color: #334155;
+            color: #f8fafc;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .control-btn:hover {
+            background-color: #475569;
+        }
+
+        .control-btn:active {
+            transform: scale(0.96);
+        }
+
+        .control-btn.primary {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+
+        .control-btn.primary:hover {
+            background-color: #7dd3fc;
+        }
+
+        .extra-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0f172a;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #volume-bar {
+            width: 80px;
+            accent-color: #38bdf8;
+            cursor: pointer;
+        }
+
+        .download-section a {
+            display: block;
+            width: 100%;
+            background-color: #10b981;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+        }
+
+        .download-section a:hover {
+            background-color: #059669;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="player-container">
+        <div class="app-header">
+            <h1>Mp3Music</h1>
+            <p>Downloader & Player</p>
+        </div>
+        
+        <!-- Custom URL Input Form -->
+        <div class="input-group">
+            <label for="url-input">Direct MP3 Link</label>
+            <div class="input-wrapper">
+                <input type="text" id="url-input" placeholder="Paste direct .mp3 link here...">
+                <button class="load-btn" id="load-url-btn">Load</button>
+            </div>
+        </div>
+
+        <!-- Current Track Info Card -->
+        <div class="track-card">
+            <p id="track-title">No track loaded</p>
+        </div>
+
+        <!-- Hidden Audio Element -->
+        <audio id="audio-element"></audio>
+
+        <!-- Progress Bar and Timers -->
+        <div class="progress-container">
+            <input type="range" id="progress-bar" value="0" max="100" step="0.1">
+            <div class="time-display">
+                <span id="current-time">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+
+        <!-- Secondary Controls (Volume & Mute status) -->
+        <div class="extra-controls">
+            <div class="volume-control">
+                <span>Vol:</span>
+                <input type="range" id="volume-bar" min="0" max="1" step="0.05" value="1">
+            </div>
+            <span id="status-text">Ready</span>
+        </div>
+
+        <!-- Playback Controls -->
+        <div class="controls">
+            <button class="control-btn primary" id="play-btn">Play</button>
+            <button class="control-btn" id="pause-btn">Pause</button>
+        </div>
+
+        <!-- Download Section -->
+        <div class="download-section">
+            <a id="download-btn" href="#" download style="display: none;">Download MP3 File</a>
+        </div>
+    </div>
+
+    <script>
+        const audioElement = document.getElementById('audio-element');
+        const playBtn = document.getElementById('play-btn');
+        const pauseBtn = document.getElementById('pause-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const trackTitle = document.getElementById('track-title');
+        const downloadBtn = document.getElementById('download-btn');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const urlInput = document.getElementById('url-input');
+        const loadUrlBtn = document.getElementById('load-url-btn');
+        const volumeBar = document.getElementById('volume-bar');
+        const statusText = document.getElementById('status-text');
+
+        // Default startup track
+        const defaultTrack = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+        loadAudioSource(defaultTrack, "SoundHelix Sample Track");
+
+        function loadAudioSource(url, name) {
+            if (!url) return;
+            audioElement.src = url;
+            trackTitle.innerText = name;
+            
+            // Setup download attributes
+            downloadBtn.href = url;
+            downloadBtn.setAttribute('download', `${name}.mp3`);
+            downloadBtn.style.display = 'block';
+            
+            statusText.innerText = "Loaded";
+            audioElement.load();
+        }
+
+        // Handle custom URL loading
+        loadUrlBtn.addEventListener('click', () => {
+            const customUrl = urlInput.value.trim();
+            if (customUrl) {
+                const fileName = customUrl.split('/').pop().split('?')[0] || "Custom_Track";
+                loadAudioSource(customUrl, fileName);
+                audioElement.play();
+                statusText.innerText = "Playing";
+            } else {
+                alert("Please paste a valid direct MP3 link.");
+            }
+        });
+
+        // Format seconds into MM:SS format
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "0:00";
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Play action
+        playBtn.addEventListener('click', () => {
+            audioElement.play();
+            statusText.innerText = "Playing";
+        });
+
+        // Pause action
+        pauseBtn.addEventListener('click', () => {
+            audioElement.pause();
+            statusText.innerText = "Paused";
+        });
+
+        // Volume control
+        volumeBar.addEventListener('input', () => {
+            audioElement.volume = volumeBar.value;
+        });
+
+        // Update progress bar and time counters as audio plays
+        audioElement.addEventListener('timeupdate', () => {
+            if (audioElement.duration) {
+                const progressPercent = (audioElement.currentTime / audioElement.duration) * 100;
+                progressBar.value = progressPercent;
+                currentTimeEl.innerText = formatTime(audioElement.currentTime);
+            }
+        });
+
+        // Set total duration once metadata loads
+        audioElement.addEventListener('loadedmetadata', () => {
+            durationEl.innerText = formatTime(audioElement.duration);
+        });
+
+        // Allow user to scrub through the track
+        progressBar.addEventListener('input', () => {
+            const seekTime = (progressBar.value / 100) * audioElement.duration;
+            audioElement.currentTime = seekTime;
+        });
+    </script>
+</body>
+</html>
