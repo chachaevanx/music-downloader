@@ -24,87 +24,66 @@
 
         .player-container {
             background: #1e293b;
-            padding: 30px;
+            padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
-            width: 400px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            width: 440px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .app-header h1 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #38bdf8;
-            letter-spacing: 0.5px;
             font-weight: 700;
         }
 
         .app-header p {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            margin-bottom: 20px;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .input-group label {
             font-size: 0.75rem;
             color: #94a3b8;
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
+            margin-bottom: 15px;
         }
 
-        .input-wrapper {
+        /* Search Bar that opens the browser */
+        .browser-search-box {
             display: flex;
             gap: 8px;
+            margin-bottom: 15px;
         }
 
-        .input-group input[type="text"] {
+        .browser-search-box input {
             flex: 1;
             padding: 10px;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid #334155;
             background: #0f172a;
             color: #f8fafc;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             outline: none;
-            transition: border-color 0.2s;
         }
 
-        .input-group input[type="text"]:focus {
-            border-color: #38bdf8;
-        }
-
-        .load-btn {
+        .browser-search-box button {
             background-color: #38bdf8;
             color: #0f172a;
             border: none;
-            padding: 0 14px;
-            border-radius: 10px;
+            padding: 0 12px;
+            border-radius: 8px;
             font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s;
+            font-size: 0.8rem;
         }
 
-        .load-btn:hover {
-            background-color: #7dd3fc;
-        }
-
-        /* Local File Upload Button Styling */
-        .local-file-section {
+        /* File Selector & Local Search */
+        .library-section {
             background: #0f172a;
             padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px dashed #334155;
+            border-radius: 12px;
+            margin-bottom: 15px;
             text-align: left;
+            border: 1px solid #334155;
         }
 
-        .local-file-section label {
+        .library-section label {
             font-size: 0.75rem;
             color: #38bdf8;
             display: block;
@@ -112,52 +91,120 @@
             font-weight: 600;
         }
 
-        #local-file-input {
+        #local-folder-input {
             font-size: 0.75rem;
             color: #94a3b8;
             width: 100%;
+            margin-bottom: 10px;
         }
 
-        #local-file-input::file-selector-button {
-            background-color: #334155;
-            color: #f8fafc;
-            border: none;
-            padding: 6px 12px;
+        .library-search {
+            width: 100%;
+            padding: 8px;
             border-radius: 6px;
+            border: 1px solid #334155;
+            background: #1e293b;
+            color: #f8fafc;
+            font-size: 0.75rem;
+            outline: none;
+            margin-bottom: 8px;
+        }
+
+        .playlist-box {
+            max-height: 90px;
+            overflow-y: auto;
+            background: #1e293b;
+            border-radius: 6px;
+            padding: 5px;
+            font-size: 0.75rem;
+        }
+
+        .playlist-item {
+            padding: 6px;
             cursor: pointer;
-            margin-right: 10px;
+            border-bottom: 1px solid #334155;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #94a3b8;
+        }
+
+        .playlist-item:hover {
+            color: #38bdf8;
+            background: #33415533;
+        }
+
+        /* Equalizer Section */
+        .eq-section {
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #334155;
+        }
+
+        .eq-title {
+            font-size: 0.75rem;
+            color: #38bdf8;
+            margin-bottom: 8px;
             font-weight: 600;
-            transition: background 0.2s;
         }
 
-        #local-file-input::file-selector-button:hover {
-            background-color: #475569;
+        .eq-sliders {
+            display: flex;
+            justify-content: space-around;
         }
 
+        .eq-band {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.65rem;
+            color: #94a3b8;
+        }
+
+        .eq-band input[type="range"] {
+            writing-mode: bt-lr; /* IE */
+            -webkit-appearance: slider-vertical;
+            width: 15px;
+            height: 60px;
+            accent-color: #38bdf8;
+            margin-bottom: 4px;
+        }
+
+        /* Track Card & Controls */
         .track-card {
             background: #0f172a;
-            padding: 14px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 12px;
             border: 1px solid #334155;
         }
 
         #track-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: #f8fafc;
-            word-break: break-all;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #album-name {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-top: 2px;
         }
 
         .progress-container {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         #progress-bar {
             width: 100%;
             cursor: pointer;
             accent-color: #38bdf8;
-            height: 6px;
+            height: 5px;
             background: #334155;
             border-radius: 3px;
         }
@@ -165,66 +212,32 @@
         .time-display {
             display: flex;
             justify-content: space-between;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #94a3b8;
-            margin-top: 6px;
+            margin-top: 4px;
         }
 
         .controls {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
         .control-btn {
             background-color: #334155;
             color: #f8fafc;
             border: none;
-            padding: 10px 22px;
-            border-radius: 30px;
+            padding: 8px 18px;
+            border-radius: 20px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.85rem;
-            transition: background 0.2s, transform 0.1s;
-        }
-
-        .control-btn:hover {
-            background-color: #475569;
+            font-size: 0.8rem;
         }
 
         .control-btn.primary {
             background-color: #38bdf8;
             color: #0f172a;
-        }
-
-        .control-btn.primary:hover {
-            background-color: #7dd3fc;
-        }
-
-        .extra-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #0f172a;
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
-
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        #volume-bar {
-            width: 75px;
-            accent-color: #38bdf8;
-            cursor: pointer;
         }
 
         .download-section a {
@@ -233,15 +246,10 @@
             background-color: #10b981;
             color: #ffffff;
             text-decoration: none;
-            padding: 12px;
-            border-radius: 12px;
+            padding: 10px;
+            border-radius: 10px;
             font-weight: 700;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-
-        .download-section a:hover {
-            background-color: #059669;
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -250,48 +258,53 @@
     <div class="player-container">
         <div class="app-header">
             <h1>Mp3Music</h1>
-            <p>Downloader & Player</p>
+            <p>Downloader & Player Hub</p>
         </div>
         
-        <!-- Local Phone File Selector -->
-        <div class="local-file-section">
-            <label for="local-file-input">Select Audio from Device Storage:</label>
-            <input type="file" id="local-file-input" accept="audio/mp3, audio/*">
+        <!-- Search bar that takes user to the web browser -->
+        <div class="browser-search-box">
+            <input type="text" id="web-search-input" placeholder="Search web for music/videos...">
+            <button id="search-web-btn">Search Web</button>
         </div>
 
-        <!-- Custom URL Input Form -->
-        <div class="input-group">
-            <label for="url-input">Or Paste Direct MP3 Link</label>
-            <div class="input-wrapper">
-                <input type="text" id="url-input" placeholder="https://...song.mp3">
-                <button class="load-btn" id="load-url-btn">Load</button>
+        <!-- Local Files, Albums, and In-File Search Library -->
+        <div class="library-section">
+            <label>Device Music Library & Albums</label>
+            <input type="file" id="local-folder-input" accept="audio/*" multiple>
+            <input type="text" id="library-search-input" class="library-search" placeholder="Search existing music in files...">
+            <div class="playlist-box" id="playlist-container">
+                <div class="playlist-item" style="color: #64748b; text-align: center;">No local audio loaded yet</div>
             </div>
         </div>
 
-        <!-- Current Track Info Card -->
+        <!-- Equalizer Controller -->
+        <div class="eq-section">
+            <div class="eq-title">Audio Equalizer</div>
+            <div class="eq-sliders">
+                <div class="eq-band"><span>60Hz</span><input type="range" class="eq-slider" data-band="0" min="-20" max="20" value="0"></div>
+                <div class="eq-band"><span>230Hz</span><input type="range" class="eq-slider" data-band="1" min="-20" max="20" value="0"></div>
+                <div class="eq-band"><span>910Hz</span><input type="range" class="eq-slider" data-band="2" min="-20" max="20" value="0"></div>
+                <div class="eq-band"><span>4kHz</span><input type="range" class="eq-slider" data-band="3" min="-20" max="20" value="0"></div>
+                <div class="eq-band"><span>14kHz</span><input type="range" class="eq-slider" data-band="4" min="-20" max="20" value="0"></div>
+            </div>
+        </div>
+
+        <!-- Current Track Info -->
         <div class="track-card">
-            <p id="track-title">No track loaded</p>
+            <p id="track-title">Select or load a track</p>
+            <p id="album-name">Album: Unknown Album</p>
         </div>
 
         <!-- Hidden Audio Element -->
-        <audio id="audio-element"></audio>
+        <audio id="audio-element" crossorigin="anonymous"></audio>
 
-        <!-- Progress Bar and Timers -->
+        <!-- Progress Bar & Time -->
         <div class="progress-container">
             <input type="range" id="progress-bar" value="0" max="100" step="0.1">
             <div class="time-display">
                 <span id="current-time">0:00</span>
                 <span id="duration">0:00</span>
             </div>
-        </div>
-
-        <!-- Secondary Controls (Volume & Status) -->
-        <div class="extra-controls">
-            <div class="volume-control">
-                <span>Vol:</span>
-                <input type="range" id="volume-bar" min="0" max="1" step="0.05" value="1">
-            </div>
-            <span id="status-text">Ready</span>
         </div>
 
         <!-- Playback Controls -->
@@ -302,7 +315,7 @@
 
         <!-- Download Section -->
         <div class="download-section">
-            <a id="download-btn" href="#" download style="display: none;">Download / Export MP3</a>
+            <a id="download-btn" href="#" download style="display: none;">Download Current File</a>
         </div>
     </div>
 
@@ -312,83 +325,136 @@
         const pauseBtn = document.getElementById('pause-btn');
         const progressBar = document.getElementById('progress-bar');
         const trackTitle = document.getElementById('track-title');
+        const albumNameEl = document.getElementById('album-name');
         const downloadBtn = document.getElementById('download-btn');
         const currentTimeEl = document.getElementById('current-time');
         const durationEl = document.getElementById('duration');
-        const urlInput = document.getElementById('url-input');
-        const loadUrlBtn = document.getElementById('load-url-btn');
-        const localFileInput = document.getElementById('local-file-input');
-        const volumeBar = document.getElementById('volume-bar');
-        const statusText = document.getElementById('status-text');
+        
+        const webSearchInput = document.getElementById('web-search-input');
+        const searchWebBtn = document.getElementById('search-web-btn');
+        const localFolderInput = document.getElementById('local-folder-input');
+        const librarySearchInput = document.getElementById('library-search-input');
+        const playlistContainer = document.getElementById('playlist-container');
 
-        function loadAudioSource(url, name, isLocal = false) {
-            if (!url) return;
-            audioElement.src = url;
-            trackTitle.innerText = name;
-            
-            if (isLocal) {
-                // For local files, the download link points directly to the local object URL
-                downloadBtn.href = url;
-                downloadBtn.setAttribute('download', name);
+        let localTracks = [];
+        let audioCtx, sourceNode, filters = [];
+
+        // 1. External Web Search Button (Opens browser query)
+        searchWebBtn.addEventListener('click', () => {
+            const query = webSearchInput.value.trim();
+            if (query) {
+                // Opens device default browser searching for the query
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(query + " mp3 download")}`, '_blank');
             } else {
-                downloadBtn.href = url;
-                downloadBtn.setAttribute('download', `${name}.mp3`);
+                alert("Please enter a search term for music.");
             }
+        });
+
+        // 2. Setup Web Audio Equalizer API
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                sourceNode = audioCtx.createMediaElementSource(audioElement);
+
+                // Define 5 frequency bands for EQ
+                const frequencies = [60, 230, 910, 4000, 14000];
+                let lastNode = sourceNode;
+
+                filters = frequencies.map(freq => {
+                    let filter = audioCtx.createBiquadFilter();
+                    filter.type = 'peaking';
+                    filter.frequency.value = freq;
+                    filter.gain.value = 0;
+                    lastNode.connect(filter);
+                    lastNode = filter;
+                    return filter;
+                });
+
+                lastNode.connect(audioCtx.destination);
+            }
+        }
+
+        // Handle Equalizer slider changes
+        document.querySelectorAll('.eq-slider').forEach(slider => {
+            slider.addEventListener('input', (e) => {
+                initAudioContext();
+                const bandIndex = e.target.getAttribute('data-band');
+                if (filters[bandIndex]) {
+                    filters[bandIndex].gain.value = parseFloat(e.target.value);
+                }
+            });
+        });
+
+        // 3. Load Local Music & Albums from Phone Storage
+        localFolderInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files).filter(file => file.type.includes('audio') || file.name.endsWith('.mp3'));
+            localTracks = files.map(file => ({
+                name: file.name,
+                album: file.webkitRelativePath ? file.webkitRelativePath.split('/')[0] : "Local Storage",
+                url: URL.createObjectURL(file)
+            }));
+            renderPlaylist(localTracks);
+        });
+
+        // Render Playlist items
+        function renderPlaylist(tracks) {
+            playlistContainer.innerHTML = '';
+            if (tracks.length === 0) {
+                playlistContainer.innerHTML = '<div class="playlist-item" style="color: #64748b; text-align: center;">No matching files found</div>';
+                return;
+            }
+
+            tracks.forEach((track) => {
+                const item = document.createElement('div');
+                item.className = 'playlist-item';
+                item.innerText = track.name;
+                item.addEventListener('click', () => {
+                    loadTrack(track);
+                    audioElement.play();
+                });
+                playlistContainer.appendChild(item);
+            });
+        }
+
+        // 4. In-File Search Filter
+        librarySearchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = localTracks.filter(track => track.name.toLowerCase().includes(term));
+            renderPlaylist(filtered);
+        });
+
+        function loadTrack(track) {
+            initAudioContext();
+            audioElement.src = track.url;
+            trackTitle.innerText = track.name;
+            albumNameEl.innerText = `Album: ${track.album}`;
             
+            downloadBtn.href = track.url;
+            downloadBtn.setAttribute('download', track.name);
             downloadBtn.style.display = 'block';
-            statusText.innerText = "Loaded";
-            audioElement.load();
         }
 
-        // Handle local phone file selection
-        localFileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const localUrl = URL.createObjectURL(file);
-                loadAudioSource(localUrl, file.name, true);
-                audioElement.play();
-                statusText.innerText = "Playing Local";
-            }
-        });
-
-        // Handle custom web URL loading
-        loadUrlBtn.addEventListener('click', () => {
-            const customUrl = urlInput.value.trim();
-            if (customUrl) {
-                const fileName = customUrl.split('/').pop().split('?')[0] || "Custom_Track";
-                loadAudioSource(customUrl, fileName, false);
-                audioElement.play();
-                statusText.innerText = "Playing URL";
-            } else {
-                alert("Please paste a valid direct MP3 link.");
-            }
-        });
-
-        function formatTime(seconds) {
-            if (isNaN(seconds)) return "0:00";
-            const minutes = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-        }
-
+        // Playback listeners
         playBtn.addEventListener('click', () => {
+            initAudioContext();
+            if(audioCtx.state === 'suspended') audioCtx.resume();
             audioElement.play();
-            statusText.innerText = "Playing";
         });
 
         pauseBtn.addEventListener('click', () => {
             audioElement.pause();
-            statusText.innerText = "Paused";
         });
 
-        volumeBar.addEventListener('input', () => {
-            audioElement.volume = volumeBar.value;
-        });
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "0:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
 
         audioElement.addEventListener('timeupdate', () => {
             if (audioElement.duration) {
-                const progressPercent = (audioElement.currentTime / audioElement.duration) * 100;
-                progressBar.value = progressPercent;
+                progressBar.value = (audioElement.currentTime / audioElement.duration) * 100;
                 currentTimeEl.innerText = formatTime(audioElement.currentTime);
             }
         });
@@ -398,8 +464,7 @@
         });
 
         progressBar.addEventListener('input', () => {
-            const seekTime = (progressBar.value / 100) * audioElement.duration;
-            audioElement.currentTime = seekTime;
+            audioElement.currentTime = (progressBar.value / 100) * audioElement.duration;
         });
     </script>
 </body>
