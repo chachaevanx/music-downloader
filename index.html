@@ -42,11 +42,11 @@
         .app-header p {
             font-size: 0.8rem;
             color: #94a3b8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: left;
         }
 
@@ -63,9 +63,9 @@
             gap: 8px;
         }
 
-        .input-group input {
+        .input-group input[type="text"] {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             border-radius: 10px;
             border: 1px solid #334155;
             background: #0f172a;
@@ -75,7 +75,7 @@
             transition: border-color 0.2s;
         }
 
-        .input-group input:focus {
+        .input-group input[type="text"]:focus {
             border-color: #38bdf8;
         }
 
@@ -83,7 +83,7 @@
             background-color: #38bdf8;
             color: #0f172a;
             border: none;
-            padding: 0 16px;
+            padding: 0 14px;
             border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
@@ -94,16 +94,56 @@
             background-color: #7dd3fc;
         }
 
+        /* Local File Upload Button Styling */
+        .local-file-section {
+            background: #0f172a;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px dashed #334155;
+            text-align: left;
+        }
+
+        .local-file-section label {
+            font-size: 0.75rem;
+            color: #38bdf8;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        #local-file-input {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            width: 100%;
+        }
+
+        #local-file-input::file-selector-button {
+            background-color: #334155;
+            color: #f8fafc;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        #local-file-input::file-selector-button:hover {
+            background-color: #475569;
+        }
+
         .track-card {
             background: #0f172a;
-            padding: 16px;
+            padding: 14px;
             border-radius: 12px;
             margin-bottom: 20px;
             border: 1px solid #334155;
         }
 
         #track-title {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: #f8fafc;
             word-break: break-all;
@@ -142,20 +182,16 @@
             background-color: #334155;
             color: #f8fafc;
             border: none;
-            padding: 12px 24px;
+            padding: 10px 22px;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: background 0.2s, transform 0.1s;
         }
 
         .control-btn:hover {
             background-color: #475569;
-        }
-
-        .control-btn:active {
-            transform: scale(0.96);
         }
 
         .control-btn.primary {
@@ -186,7 +222,7 @@
         }
 
         #volume-bar {
-            width: 80px;
+            width: 75px;
             accent-color: #38bdf8;
             cursor: pointer;
         }
@@ -202,7 +238,6 @@
             font-weight: 700;
             font-size: 0.9rem;
             transition: background 0.2s;
-            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
         }
 
         .download-section a:hover {
@@ -218,11 +253,17 @@
             <p>Downloader & Player</p>
         </div>
         
+        <!-- Local Phone File Selector -->
+        <div class="local-file-section">
+            <label for="local-file-input">Select Audio from Device Storage:</label>
+            <input type="file" id="local-file-input" accept="audio/mp3, audio/*">
+        </div>
+
         <!-- Custom URL Input Form -->
         <div class="input-group">
-            <label for="url-input">Direct MP3 Link</label>
+            <label for="url-input">Or Paste Direct MP3 Link</label>
             <div class="input-wrapper">
-                <input type="text" id="url-input" placeholder="Paste direct .mp3 link here...">
+                <input type="text" id="url-input" placeholder="https://...song.mp3">
                 <button class="load-btn" id="load-url-btn">Load</button>
             </div>
         </div>
@@ -244,7 +285,7 @@
             </div>
         </div>
 
-        <!-- Secondary Controls (Volume & Mute status) -->
+        <!-- Secondary Controls (Volume & Status) -->
         <div class="extra-controls">
             <div class="volume-control">
                 <span>Vol:</span>
@@ -261,7 +302,7 @@
 
         <!-- Download Section -->
         <div class="download-section">
-            <a id="download-btn" href="#" download style="display: none;">Download MP3 File</a>
+            <a id="download-btn" href="#" download style="display: none;">Download / Export MP3</a>
         </div>
     </div>
 
@@ -276,41 +317,53 @@
         const durationEl = document.getElementById('duration');
         const urlInput = document.getElementById('url-input');
         const loadUrlBtn = document.getElementById('load-url-btn');
+        const localFileInput = document.getElementById('local-file-input');
         const volumeBar = document.getElementById('volume-bar');
         const statusText = document.getElementById('status-text');
 
-        // Default startup track
-        const defaultTrack = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
-        loadAudioSource(defaultTrack, "SoundHelix Sample Track");
-
-        function loadAudioSource(url, name) {
+        function loadAudioSource(url, name, isLocal = false) {
             if (!url) return;
             audioElement.src = url;
             trackTitle.innerText = name;
             
-            // Setup download attributes
-            downloadBtn.href = url;
-            downloadBtn.setAttribute('download', `${name}.mp3`);
-            downloadBtn.style.display = 'block';
+            if (isLocal) {
+                // For local files, the download link points directly to the local object URL
+                downloadBtn.href = url;
+                downloadBtn.setAttribute('download', name);
+            } else {
+                downloadBtn.href = url;
+                downloadBtn.setAttribute('download', `${name}.mp3`);
+            }
             
+            downloadBtn.style.display = 'block';
             statusText.innerText = "Loaded";
             audioElement.load();
         }
 
-        // Handle custom URL loading
+        // Handle local phone file selection
+        localFileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const localUrl = URL.createObjectURL(file);
+                loadAudioSource(localUrl, file.name, true);
+                audioElement.play();
+                statusText.innerText = "Playing Local";
+            }
+        });
+
+        // Handle custom web URL loading
         loadUrlBtn.addEventListener('click', () => {
             const customUrl = urlInput.value.trim();
             if (customUrl) {
                 const fileName = customUrl.split('/').pop().split('?')[0] || "Custom_Track";
-                loadAudioSource(customUrl, fileName);
+                loadAudioSource(customUrl, fileName, false);
                 audioElement.play();
-                statusText.innerText = "Playing";
+                statusText.innerText = "Playing URL";
             } else {
                 alert("Please paste a valid direct MP3 link.");
             }
         });
 
-        // Format seconds into MM:SS format
         function formatTime(seconds) {
             if (isNaN(seconds)) return "0:00";
             const minutes = Math.floor(seconds / 60);
@@ -318,24 +371,20 @@
             return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
-        // Play action
         playBtn.addEventListener('click', () => {
             audioElement.play();
             statusText.innerText = "Playing";
         });
 
-        // Pause action
         pauseBtn.addEventListener('click', () => {
             audioElement.pause();
             statusText.innerText = "Paused";
         });
 
-        // Volume control
         volumeBar.addEventListener('input', () => {
             audioElement.volume = volumeBar.value;
         });
 
-        // Update progress bar and time counters as audio plays
         audioElement.addEventListener('timeupdate', () => {
             if (audioElement.duration) {
                 const progressPercent = (audioElement.currentTime / audioElement.duration) * 100;
@@ -344,12 +393,10 @@
             }
         });
 
-        // Set total duration once metadata loads
         audioElement.addEventListener('loadedmetadata', () => {
             durationEl.innerText = formatTime(audioElement.duration);
         });
 
-        // Allow user to scrub through the track
         progressBar.addEventListener('input', () => {
             const seekTime = (progressBar.value / 100) * audioElement.duration;
             audioElement.currentTime = seekTime;
