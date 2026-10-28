@@ -1,0 +1,10 @@
+{
+  "name": "Mp3Music Downloader & Player",
+  "short_name": "Mp3Music",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#38bdf8",
+  "description": "A modern web audio player with built-in equalizer and local file management.",
+  "icons": []
+}
