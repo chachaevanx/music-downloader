@@ -164,7 +164,7 @@
         }
 
         .eq-band input[type="range"] {
-            writing-mode: bt-lr; /* IE */
+            writing-mode: bt-lr;
             -webkit-appearance: slider-vertical;
             width: 15px;
             height: 60px;
@@ -343,7 +343,6 @@
         searchWebBtn.addEventListener('click', () => {
             const query = webSearchInput.value.trim();
             if (query) {
-                // Opens device default browser searching for the query
                 window.open(`https://www.google.com/search?q=${encodeURIComponent(query + " mp3 download")}`, '_blank');
             } else {
                 alert("Please enter a search term for music.");
@@ -356,7 +355,6 @@
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 sourceNode = audioCtx.createMediaElementSource(audioElement);
 
-                // Define 5 frequency bands for EQ
                 const frequencies = [60, 230, 910, 4000, 14000];
                 let lastNode = sourceNode;
 
@@ -467,6 +465,5 @@
             audioElement.currentTime = (progressBar.value / 100) * audioElement.duration;
         });
     </script>
-    
 </body>
 </html>
